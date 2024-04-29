@@ -2,25 +2,24 @@ name: Test Deploy
 
 on: 
   push:
-    branches: ["main", "dev"]
-  
+    branches: 
+      - main
+      - dev
 
 jobs:
-  #namn
   deployer:
-    runs-on:
-      ubuntu-latest
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v3
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-        - name: Doing a deploy
-          usues: appleboy/ssh-action@v0.1.10
-          with:
-            host: ${{ secrets.HOST }}
-            user: ${{ secrets.USER }}
-            password: ${{ secrets.PASSWORD }}
-            port: ${{ secrets.PORT }}
-            script: | 
-              cd /var/www/test-site-opa
-              git pull
+      - name: Doing a deploy
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /var/www/test-site-opa24
+            git pull
