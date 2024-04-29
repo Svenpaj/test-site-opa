@@ -1,0 +1,23 @@
+name: Test Deploy
+
+on: 
+  push:
+    branches: ["main", "dev"]
+  
+
+jobs:
+  #namn
+  deployer:
+    runs on:
+      ubuntu latest
+      steps:
+      - name: Doing a deploy
+        usues: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          port: ${{ secrets.PORT }}
+          script: | 
+            cd /var/www/
+            git pull
